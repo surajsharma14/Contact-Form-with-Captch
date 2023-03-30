@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form with Captch</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+</head>
+<body>
+    <div class="contact-form">
+    <h2>CONTACT US</h2>
+    <form methods="post" action="">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="text" name="phone" placeholder="Phone No." required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+
+        <div class="g-recaptcha" data-sitekey="6Lez1vAkAAAAAGYG2jrozMHkT2cKvGuF_mcCRsf7"></div>
+        <input type="submit" name="submit" value="Send Message" class="submit-btn">
+
+    </form>
+    <div class="status">
+
+<?php
+  if(isset($_POST['submit']))
+  {
+    $User_name = $_POST['name'];
+    $phone = $-POST['phone'];
+    $user_email = $_POST['email'];
+    $user_message = $_POST[message];
+
+
+    $email_from = 'noreply@sks.rrgi@gmail.com';
+    $email_subject = "New Form Submission";
+    $email_body = "Name: $User_name.\n".
+                   "Phone No. $phone.\n".
+                   "Email Id: $user_email.\n".
+                   "User Message: $user_message.\n";
+
+ $to_email = "sks.rrgi@gmail.com"
+ $headers = "from: $email_from \r\n";
+ $headers .= "Reply-To: $user_email\r\n";
+
+ $secretKey = "6LdA1vAkAAAAALsvNEROHEqtOWC_2FgDalJLid04";
+ $responseKey = $_POST['g-recaptch-response'];
+ $UserIP  = $_SERVER['REMOTE_ADDR'];
+ $url = "https://www.google.com/recaptcha/api/siteverify?
+ secret=$secretKey&response=$responseKey$remoteip=$UserIP";
+
+ $response = file_get_contents($url);
+ $response = json_decode($response);
+   
+
+</div>
+
+
+
+    </div>
+</body>
+</html>
